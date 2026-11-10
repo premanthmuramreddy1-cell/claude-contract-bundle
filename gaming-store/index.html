@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Forge — Gaming Store · Curated digital releases, honest prices</title>
+  <meta name="description" content="Neon Forge is an independent digital games store. Every title verified to run, or refunded without forms. 12 launch titles across PC, PS5 and Switch." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='88'>🕹️</text></svg>" />
+  <link rel="stylesheet" href="src/tokens.css" />
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <!-- Skip link -->
+  <a class="skip-link" href="#catalog">Skip to catalog</a>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="wordmark" href="/" aria-label="Neon Forge home">
+        <span class="wordmark__mark" aria-hidden="true">▮</span>
+        <span class="wordmark__text">Neon&nbsp;Forge</span>
+      </a>
+      <nav class="topbar__nav" aria-label="Site">
+        <a href="#catalog">Catalog</a>
+        <a href="#warranty">Warranty</a>
+        <a href="#newsletter">Newsletter</a>
+      </nav>
+      <button type="button" class="cart-fab" id="open-cart" aria-haspopup="dialog" aria-controls="cart-drawer">
+        <span aria-hidden="true">Cart</span>
+        <span class="cart-fab__count" id="cart-count" aria-live="polite">0</span>
+      </button>
+    </div>
+    <div class="strip" role="status" aria-live="polite">Launch week: <strong>free demo days</strong> on all 12 titles · orders placed before Sunday ship with a drilled key + early patch</div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <h1 id="hero-title" class="hero__title">Twelve games worth your shelf.</h1>
+        <p class="hero__sub">Neon Forge is an independent digital games store: no fake reviews, no bundles that bully you. Every launch title has been booted on real hardware, played for at least four hours, and refunded in 24h if it doesn't run on yours.</p>
+        <form class="searchbar" id="search-form" role="search">
+          <label class="searchbar__label" for="search-input">Search the catalog</label>
+          <input class="searchbar__input" id="search-input" type="search" placeholder="Try “ashfall”, “tactics”, “ports”…" autocomplete="off" />
+          <button class="btn btn--primary" type="submit">Search</button>
+        </form>
+        <ul class="hero__chips" id="platform-chips" aria-label="Filter by platform">
+          <li><button class="chip is-on" data-platform="all">All platforms</button></li>
+          <li><button class="chip" data-platform="PC">PC</button></li>
+          <li><button class="chip" data-platform="PS5">PS5</button></li>
+          <li><button class="chip" data-platform="Switch">Switch</button></li>
+        </ul>
+      </div>
+      <aside class="hero__panel" aria-label="This week in the store">
+        <figure class="hero__art"><img src="assets/ashfall-harbor.jpg" alt="Painting of a crowded Mediterranean harbour busy with sailing vessels — the world of Ashfall Harbor" onerror="this.closest('figure').style.display='none'" /></figure>
+        <p class="hero__panel-label">This week</p>
+        <h2 class="hero__panel-title">Ashfall Harbor — the port of the month</h2>
+        <p class="hero__panel-body">A rain-soaked port city that literally holds the storm together… until it doesn't. Original run: 38h. Switch version patched day-one.</p>
+        <a class="btn btn--ghost" href="#catalog">See the 12 titles ↓</a>
+      </aside>
+    </section>
+
+    <!-- CATALOG -->
+    <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+      <div class="catalog__bar">
+        <h2 id="catalog-title" class="catalog__title">The launch shelf <span id="result-count" class="result-count">12 titles</span></h2>
+        <div class="catalog__controls">
+          <label class="sr-only" for="genre-select">Filter by genre</label>
+          <select id="genre-select" class="select">
+            <option value="all">All genres</option>
+            <option value="roguelike">Roguelike</option>
+            <option value="rpg">RPG</option>
+            <option value="tactics">Tactics</option>
+            <option value="action">Action</option>
+            <option value="puzzle">Puzzle</option>
+            <option value="sim">Sim</option>
+          </select>
+          <label class="sr-only" for="sort-select">Sort</label>
+          <select id="sort-select" class="select">
+            <option value="featured">Sort: featured</option>
+            <option value="price-asc">Price: low → high</option>
+            <option value="price-desc">Price: high → low</option>
+            <option value="rating">Rating: highest</option>
+            <option value="name">Name: A–Z</option>
+          </select>
+        </div>
+      </div>
+      <ul class="grid" id="game-grid"></ul>
+      <p class="empty" id="empty-state" hidden>Nothing matches that yet — clear the search or pick another platform.</p>
+    </section>
+
+    <!-- WARRANTY -->
+    <section class="warranty" id="warranty" aria-labelledby="warranty-title">
+      <h2 id="warranty-title" class="section-title">The Neon Forge warranty</h2>
+      <ol class="warranty__steps">
+        <li><strong>Boot test.</strong> Every launch title ran on current hardware here — we list what it ran on, so you know what yours must do.</li>
+        <li><strong>Four-hour floor.</strong> We played each one for at least four hours before listing it. No perma-demos masquerading as games.</li>
+        <li><strong>24-hour refund.</strong> If it doesn't run on your setup, a plain “it didn’t run” gets a refund. No forms, no review-mining.</li>
+      </ol>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+      <h2 id="newsletter-title" class="section-title">One email, every Friday</h2>
+      <p>What shipped, what broke, what we'd refund. Read in 90 seconds. Unsubscribe with one click.</p>
+      <form id="newsletter-form" class="newsletter__form">
+        <label class="sr-only" for="newsletter-email">Your email</label>
+        <input id="newsletter-email" type="email" required placeholder="you@example.com" />
+        <button class="btn btn--primary" type="submit">Subscribe</button>
+      </form>
+      <p class="newsletter__note" id="newsletter-status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__brand">Neon&nbsp;Forge</p>
+        <p class="footer__fine">Est. 2026 · Independent digital games<br/>“Every title verified to run, or refunded without forms.”</p>
+      </div>
+      <nav aria-label="Legal">
+        <ul class="footer__list">
+          <li><a href="#warranty">Refund policy</a></li>
+          <li><a href="#warranty">Boot-test log</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Company">
+        <ul class="footer__list">
+          <li><a href="#newsletter">The Friday Dispatch</a></li>
+          <li><a href="mailto:hello@neonforge.games">hello@neonforge.games</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="credits" aria-label="Image credits"><small>Paintings: Willem van de Velde the Younger (public domain) via Wikimedia Commons · full credits: <a href="assets/credits.txt">assets/credits.txt</a></small></div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+    <div class="cart-drawer__panel">
+      <header class="cart-drawer__head">
+        <h2 id="cart-title">Your cart</h2>
+        <button class="icon-btn" id="close-cart" aria-label="Close cart">✕</button>
+      </header>
+      <ul class="cart-list" id="cart-list"></ul>
+      <div class="cart-summary">
+        <div class="cart-summary__row"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+        <div class="cart-summary__row cart-summary__row--fine"><span>Platform fees</span><span>Included</span></div>
+        <button class="btn btn--primary btn--block" id="checkout-btn">Checkout · drilled key by email</button>
+        <button class="btn btn--ghost btn--block" id="clear-cart">Empty cart</button>
+      </div>
+    </div>
+  </div>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <!-- CHECKOUT DIALOG -->
+  <div class="checkout" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title" hidden>
+    <div class="checkout__panel">
+      <h2 id="checkout-title">Checkout</h2>
+      <p class="checkout__sub">No card on this page — a stranger's inbox is not a vault. We'll email a payment link you can review at leisure.</p>
+      <form id="checkout-form">
+        <label class="field"><span>Email for the link</span><input id="checkout-email" type="email" required placeholder="you@example.com" /></label>
+        <label class="field"><span>Order note (optional)</span><input id="checkout-note" type="text" maxlength="120" placeholder="PC this time / gift it / refund hazard" /></label>
+        <button class="btn btn--primary btn--block" type="submit">Send payment link</button>
+      </form>
+      <p class="checkout__status" id="checkout-status" role="status" aria-live="polite"></p>
+      <button class="btn btn--ghost btn--block" id="checkout-close">Close</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="src/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Install ONLY with explicit user approval:
+     cp claude.weekly-audit.plist ~/Library/LaunchAgents/
+     launchctl load ~/Library/LaunchAgents/claude.weekly-audit.plist
+     Runs weekly (Mondays 09:00) — edit StartCalendarInterval to taste.
+     Remove: launchctl unload ~/Library/LaunchAgents/claude.weekly-audit.plist && rm ~/Library/LaunchAgents/claude.weekly-audit.plist -->
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.claude.contract-weekly-audit</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/bin/python3</string>
+      <string>/Users/premanthmuramreddy/.claude/bin/weekly-audit.py</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Weekday</key>
+      <integer>1</integer>
+      <key>Hour</key>
+      <integer>9</integer>
+      <key>Minute</key>
+      <integer>0</integer>
+    </dict>
+    <key>StandardErrorPath</key>
+    <string>/Users/premanthmuramreddy/.claude/audits/weekly-audit.err</string>
+    <key>StandardOutPath</key>
+    <string>/Users/premanthmuramreddy/.claude/audits/weekly-audit.out</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>HOME</key>
+      <string>/Users/premanthmuramreddy</string>
+    </dict>
+  </dict>
+</plist>

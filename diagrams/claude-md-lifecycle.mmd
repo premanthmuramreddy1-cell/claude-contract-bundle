@@ -1,0 +1,15 @@
+graph TD
+  Ask[User asks for work] --> Load[Session boot\nCLAUDE.md loads every turn]
+  Load --> Tier[S2 classify tier T0..T4]
+  Tier -->|T0 / T1| Fast[Fast lane: answer or 1-file fix\nno ceremony]
+  Tier -->|T2+| Shards[S0.4 load matching shards\ndesign / swarm / testing / human-output...]
+  Shards --> Plan[S12 contract plan\naccept: lines per step]
+  Plan --> Swarm[S16 swarm or single thread\nTrinity: UI + CODE + CONNECT]
+  Swarm --> Verify[S17-S19 verify L0 self -> L1 command\n-> L2 blind review -> L3 integration]
+  Verify -->|fail| Fix[Fix loop or escalate S31]
+  Fix --> Swarm
+  Verify -->|pass| Gate[S27 7-line gate\nPERF + AUDIT quoted]
+  Gate --> Commit[S24 git lifecycle\n1 commit per verified step]
+  Commit --> Report[S34 report\n+ S43.6 compliance audit]
+  Fast --> Report
+  Report --> Learn[S21 lessons -> repo memory\nnever the other way round]

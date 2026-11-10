@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.pyc
+audits/
+*.bak-*
+diagrams/*.png
+diagrams/*.svg
+.gstack/
+.remember/

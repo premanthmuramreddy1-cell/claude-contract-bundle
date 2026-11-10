@@ -1,0 +1,43 @@
+graph TD
+  subgraph YOU[YOU - the human who owns it]
+    direction TB
+    Ask[You ask for work] --> Decide[You decide what done means]
+    Decide -->|steer anytime| Course[Change tier, direction, or stop]
+  end
+
+  subgraph AGENT[AGENT - the executive brain, inside CLAUDE.md]
+    direction TB
+    Load[Every turn: read the contract] --> Tier{S2: how big is this task?}
+    Tier -->|T0 / T1| Fast[Answer directly / one-file fix]
+    Tier -->|T2+| Trigger[S0.4: fire the shards that match]
+    Trigger --> Read[S6 first reads: README, build files, CI]
+    Read --> Plan[S12: numbered steps written down, not improvised]
+    Plan --> Work[S16: build - single thread or swarm of lanes]
+    Work --> FastCheck[L0 self-check: does it compile, do my own checks pass]
+  end
+
+  subgraph PROOF[THE MACHINE CHECKS - the honest referee]
+    direction TB
+    L1[S17 L1: run the command again, fresh] --> L2[S19 L2: a blind reviewer who never saw my reasoning]
+    L2 --> L3[L3: the real user command, end to end]
+    L3 --> Gate{S27: 7-line gate, all quoted?}
+    Gate -->|no| Rework[Return to Work - fix with quoted evidence]
+    Rework --> L1
+  end
+
+  Fast --> Report
+  FastCheck --> L1
+  Gate -->|yes| Commit[S24: one commit per verified step]
+  Commit --> Report[S34: the receipt - tier, changes, proof lines]
+  Report --> Feed[S43.6 + weekly audit: the journal cross-checks the claim]
+  Feed -->|mismatch| Court[Humans decide: real or smoothed-over]
+  Court -->|fixed| Commit
+  Course --> Load
+  Feed --> Learn[S21: one line of durable lesson saved]
+
+  classDef human fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#451a03
+  classDef agent fill:#e0e7ff,stroke:#4338ca,stroke-width:2px,color:#1e1b4b
+  classDef check fill:#d1fae5,stroke:#047857,stroke-width:2px,color:#064e3b
+  class Ask,Decide,Course human
+  class Load,Tier,Fast,Trigger,Read,Plan,Work,FastCheck agent
+  class L1,L2,L3,Gate,Rework,Commit,Report,Feed,Court,Learn check

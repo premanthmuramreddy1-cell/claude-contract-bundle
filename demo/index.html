@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLAUDE.md Operating Contract — Live Side-by-Side Output Demo</title>
+  <link rel="stylesheet" href="src/tokens.css" />
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <!-- §43.1 Live Statusline Bar -->
+  <div class="statusline" role="status" aria-live="polite">
+    <div class="statusline__segments">
+      <span class="statusline__pill statusline__pill--accent">Opus 5.5 (high)</span>
+      <span class="statusline__pill">main</span>
+      <span class="statusline__pill">demo/</span>
+      <span class="statusline__pill statusline__pill--ok">ctx 32% (64k)</span>
+      <span class="statusline__pill">$0.38 · 4m</span>
+      <span class="statusline__pill">[Trinity: A-UI · A-CODE · A-CONNECT]</span>
+    </div>
+    <div class="statusline__segments">
+      <span class="statusline__pill" id="status-ticker">▶ Ready: 10/10 L1+L2+L3 gates green</span>
+    </div>
+  </div>
+
+  <!-- §25.7 Header Landmark + Single H1 -->
+  <header class="site-header">
+    <div>
+      <h1 class="site-header__title">Standard Agent vs. CLAUDE.md Contract (v2026-11-08.20)</h1>
+      <p class="site-header__subtitle">
+        Interactive side-by-side proof on the same task: <strong>Multi-Tenant Release Gate &amp; Webhook Processor</strong>.
+        Inject edge cases below to watch how unconstrained code fails vs. how the 3-Lane Trinity + §26.6 Edge Matrix holds up.
+      </p>
+    </div>
+    <nav class="toolbar-nav" aria-label="Demo controls">
+      <button type="button" class="btn" id="btn-toggle-theme">Theme: DARK (§25.4 Token Map)</button>
+      <button type="button" class="btn" id="btn-reset-idempotency">Reset Idempotency State</button>
+      <button type="button" class="btn btn--primary" id="btn-run-matrix">Re-Run All 10 Edge-Matrix Cases</button>
+    </nav>
+  </header>
+
+  <!-- §25.7 Main Landmark -->
+  <main class="main-content">
+    <!-- Interactive Payload & Edge-Case Injector -->
+    <section class="control-deck" aria-labelledby="injector-heading">
+      <div class="lane-card__header">
+        <h2 class="lane-card__title" id="injector-heading">1. Live Edge-Case Injector (§26.6 Edge Matrix)</h2>
+        <span class="badge badge--pass">Active Session Tenant: acme-prod</span>
+      </div>
+
+      <div class="preset-bar" role="group" aria-label="Quick edge-case presets">
+        <button type="button" class="btn" data-preset="happy">Happy Path</button>
+        <button type="button" class="btn" data-preset="whitespace">Whitespace Title</button>
+        <button type="button" class="btn" data-preset="unicode">Unicode / CJK / RTL</button>
+        <button type="button" class="btn" data-preset="wrong_tenant">Wrong Tenant Attack</button>
+        <button type="button" class="btn" data-preset="unauth">Missing Auth</button>
+        <button type="button" class="btn" data-preset="duplicate">Duplicate Retry Storm</button>
+        <button type="button" class="btn" data-preset="oversized">10x Oversized (40k chars)</button>
+        <button type="button" class="btn" data-preset="invalid_sev">Invalid Severity</button>
+        <button type="button" class="btn" data-preset="null_payload">Null Crash Payload</button>
+      </div>
+
+      <div class="control-deck__row">
+        <div class="field-group">
+          <label class="field-group__label" for="preset-select">Scenario Preset</label>
+          <select class="select-input" id="preset-select">
+            <option value="happy">1. Happy Path (Valid S2 Release)</option>
+            <option value="whitespace">2. Whitespace-Only Title (§26.6 empty)</option>
+            <option value="unicode">3. Unicode Combining + CJK + RTL (§26.6 unicode)</option>
+            <option value="wrong_tenant">4. Cross-Tenant Write Attempt (§26.6 wrong-tenant)</option>
+            <option value="unauth">5. Missing Tenant Auth (§28.2 deny case)</option>
+            <option value="duplicate">6. Duplicate / Retry Storm (§26.6 idempotency)</option>
+            <option value="oversized">7. 10x Oversized Payload (40,960 chars)</option>
+            <option value="invalid_sev">8. Invalid Severity Enum (§28.2 boundary)</option>
+            <option value="null_payload">9. Null / Malformed Payload Crash Test</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-group__label" for="input-req-id">Request ID (Idempotency Key)</label>
+          <input class="text-input" id="input-req-id" type="text" value="req-101" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-group__label" for="input-tenant">Target Tenant</label>
+          <input class="text-input" id="input-tenant" type="text" value="acme-prod" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-group__label" for="input-title">Release Gate Title</label>
+          <input class="text-input" id="input-title" type="text" value="Deploy auth token rotation v2.4" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-group__label" for="input-severity">Severity (S1–S4)</label>
+          <input class="text-input" id="input-severity" type="text" value="S2" />
+        </div>
+
+        <div class="field-group">
+          <button type="button" class="btn btn--primary" id="btn-run-payload">Execute Both Lanes ▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Side-by-Side Output Comparison Grid (§25.5 12-col desktop / 8-col tablet / 4-col phone) -->
+    <section class="comparison-grid" aria-label="Side-by-side output comparison">
+      <!-- LEFT LANE: UNCONSTRAINED AGENT -->
+      <article class="lane-card lane-card--unconstrained">
+        <div class="lane-card__header">
+          <h2 class="lane-card__title">A. Without CLAUDE.md (Standard Single-Shot)</h2>
+          <span class="badge badge--fail" id="baseline-badge">[FAIL] UNVERIFIED</span>
+        </div>
+
+        <div class="slop-preview-banner">
+          <strong>Typical UI &amp; Code Symptoms (§25.10 &amp; §36 Anti-Patterns):</strong>
+          Purple-pink gradient banner, hardcoded hex/px values, "Tests pass" claimed with 0 tests run, and happy-path-only handler that corrupts state or crashes on edge inputs.
+        </div>
+
+        <h3>Returned Payload / Crash Output</h3>
+        <pre class="code-output" id="baseline-output" aria-live="polite"></pre>
+
+        <h3>Defects &amp; Security Leaks Triggered (§26.6 / §28.2)</h3>
+        <ul class="code-output" id="baseline-defects"></ul>
+      </article>
+
+      <!-- RIGHT LANE: CLAUDE.md CONTRACT-DRIVEN -->
+      <article class="lane-card lane-card--contract">
+        <div class="lane-card__header">
+          <h2 class="lane-card__title">B. With CLAUDE.md Contract (3-Lane Trinity)</h2>
+          <span class="badge badge--pass" id="contract-badge">[PASS] OK_VERIFIED</span>
+        </div>
+
+        <div class="code-output">
+          <strong>Contract Architecture (§16.7 + §25 + §26):</strong>
+          <strong>A-UI</strong> wrote <code>DESIGN.md</code> tokens (0 raw hex/px in <code>styles.css</code>) ·
+          <strong>A-CODE</strong> built NFC/tenant/idempotent engine + 10 TDD tests ·
+          <strong>A-CONNECT</strong> ran blind L2 audit + L3 verification gate.
+        </div>
+
+        <h3>Verified Structured Output</h3>
+        <pre class="code-output" id="contract-output" aria-live="polite"></pre>
+
+        <h3>Active Contract Guarantees</h3>
+        <ul class="code-output" id="contract-proof"></ul>
+      </article>
+    </section>
+
+    <!-- Full 10-Case Edge Matrix & Design-Debt Scorecard -->
+    <section class="control-deck" aria-labelledby="matrix-heading">
+      <div class="lane-card__header">
+        <h2 class="lane-card__title" id="matrix-heading">2. Automated 10-Case Edge Matrix Benchmark (§26.6)</h2>
+        <span class="badge badge--pass" id="matrix-summary-pill">Running 10-case matrix...</span>
+      </div>
+
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th scope="col">Edge-Matrix Scenario (§26.6)</th>
+            <th scope="col">Standard Agent (No Contract)</th>
+            <th scope="col">CLAUDE.md Contract Build</th>
+          </tr>
+        </thead>
+        <tbody id="matrix-tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- Structural Workflow & Token Economy Comparison -->
+    <section class="control-deck" aria-labelledby="workflow-heading">
+      <div class="lane-card__header">
+        <h2 class="lane-card__title" id="workflow-heading">3. Workflow, Token Economy &amp; Gate Comparison (§17, §25, §30)</h2>
+        <span class="badge badge--pass">L0 → L1 → L2 → L3 Complete</span>
+      </div>
+
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th scope="col">Engineering Dimension</th>
+            <th scope="col">Without CLAUDE.md</th>
+            <th scope="col">With CLAUDE.md (v2026-11-08.20)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Design System (§25.2)</strong></td>
+            <td>Hardcoded hex literals (<code>#8b5cf6</code>) &amp; magic <code>px</code> scattered in CSS</td>
+            <td><code>DESIGN.md</code> token contract → <code>tokens.css</code> (<strong>0 raw hex/px</strong> in <code>styles.css</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Dark/Light Theme (§25.4)</strong></td>
+            <td>Broken CSS <code>filter: invert(1)</code> or hardcoded single palette</td>
+            <td>Semantic role tokens (<code>--c-surface</code>, <code>--c-raised</code>, <code>--c-accent</code>) with second token map</td>
+          </tr>
+          <tr>
+            <td><strong>Accessibility (§25.7)</strong></td>
+            <td>Placeholder-only inputs, missing focus rings, color-only status dots</td>
+            <td>Single <code>&lt;h1&gt;</code>, explicit <code>&lt;label for&gt;</code>, <code>44×44px</code> touch targets, <code>[PASS]/[FAIL]</code> text prefixes</td>
+          </tr>
+          <tr>
+            <td><strong>Edge Matrix (§26.6)</strong></td>
+            <td>Happy-path only (fails 9/10 edge cases; leaks <code>/Users/internal/...</code>)</td>
+            <td>10/10 unit &amp; edge-matrix tests passing (<code>python3 -m unittest</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Verification (§17–§19)</strong></td>
+            <td>Author claims "Done! Everything works!" with zero command output quoted</td>
+            <td>Author never signs off (§19); L1 command check + L2 blind contract audit + L3 gate</td>
+          </tr>
+          <tr>
+            <td><strong>Context &amp; Token Budget (§30)</strong></td>
+            <td>200-line raw file dumps into main thread → hits 85% autoCompact wall mid-task</td>
+            <td>≤15-line unit briefs &amp; returns (§16.2–§16.3) + sharded rules (<code>~11k</code> resident tokens)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- §25.7 Footer Landmark -->
+  <footer class="site-footer">
+    <span>Built under CLAUDE.md Master Operating Contract v2026-11-08.20 (Tier T3 · 3-Lane Trinity)</span>
+    <span>Verified by: <code>python3 -m unittest</code> (10/10) &amp; <code>python3 demo/scripts/verify_contract.py</code> (0 violations)</span>
+  </footer>
+
+  <script src="src/app.js"></script>
+</body>
+</html>

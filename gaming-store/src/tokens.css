@@ -1,0 +1,27 @@
+/* Neon Forge — tokens, roles only, no raw hex/px soup below this file. */
+:root {
+  --nf-surface: #0e1217;          /* page ground: near-black slate, not pure black */
+  --nf-raised: #171d25;           /* cards, drawers */
+  --nf-raised-2: #1e2631;         /* hover / active states */
+  --nf-border: #2a3440;           /* hairline separation */
+  --nf-text: #e8edf2;             /* primary ink */
+  --nf-text-dim: #9aa7b5;         /* secondary text */
+  --nf-accent: #ffc44d;           /* amber-gold: the kiln light */
+  --nf-accent-ink: #241a02;       /* text on accent */
+  --nf-ok: #3ed598;               /* in stock / ok */
+  --nf-warn: #ffb454;
+  --nf-danger: #ff6b6b;
+  --nf-focus: #ffd97a;            /* high-contrast focus */
+  --nf-radius-s: 6px;
+  --nf-radius-m: 10px;
+  --nf-space-1: 0.25rem; --nf-space-2: 0.5rem; --nf-space-3: 0.75rem;
+  --nf-space-4: 1rem;   --nf-space-6: 1.5rem; --nf-space-8: 2rem; --nf-space-12: 3rem;
+  --nf-gap-section: 5rem;
+  --nf-maxw: 72rem;
+  --nf-shadow: 0 18px 48px rgba(0,0,0,.45);
+  --nf-font-display: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --nf-font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+@media (prefers-reduced-motion: no-preference) { :root { --nf-swap: 160ms ease; } }
+:focus-visible { outline: 3px solid var(--nf-focus); outline-offset: 2px; border-radius: 2px; }
+::selection { background: var(--nf-accent); color: var(--nf-accent-ink); }

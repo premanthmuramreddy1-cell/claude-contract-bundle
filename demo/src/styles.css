@@ -1,0 +1,320 @@
+/*
+ * A-UI Component Stylesheet (§25.2–§25.8)
+ * ZERO raw hex codes (#...) and ZERO raw pixel literals (...px) allowed here.
+ * Enforced by demo/scripts/verify_contract.py (L2 design-debt check).
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--c-surface);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-prose);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* §25.7 Visible keyboard focus indicator ≥ 3:1 contrast */
+:focus-visible {
+  outline: var(--focus-ring) solid var(--c-accent);
+  outline-offset: var(--s-1);
+}
+
+/* Statusline Live Bar (§43.1) */
+.statusline {
+  background-color: var(--c-raised);
+  border-bottom: var(--hairline) solid var(--c-border);
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  padding: var(--s-2) var(--s-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+  justify-content: space-between;
+  font-variant-numeric: tabular-nums;
+}
+
+.statusline__segments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.statusline__pill {
+  padding: var(--s-1) var(--s-2);
+  border: var(--hairline) solid var(--c-border);
+  border-radius: var(--r-sm);
+  background-color: var(--c-surface);
+}
+
+.statusline__pill--accent {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+  font-weight: var(--fw-bold);
+}
+
+.statusline__pill--ok {
+  border-color: var(--c-success);
+  color: var(--c-success);
+}
+
+/* Header & Navigation Landmarks (§25.7) */
+.site-header {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--s-5) var(--s-4) var(--s-4);
+  border-bottom: var(--hairline) solid var(--c-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.site-header__title {
+  font-family: var(--f-mono);
+  font-size: var(--t-4xl);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+.site-header__subtitle {
+  color: var(--c-text-muted);
+  max-width: var(--measure-prose);
+  margin-top: var(--s-1);
+}
+
+.toolbar-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+/* Interactive Controls — §25.7 ≥ 44×44 touch targets */
+.btn,
+.select-input,
+.text-input {
+  min-height: var(--touch-min);
+  min-width: var(--touch-min);
+  padding: var(--s-2) var(--s-3);
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  color: var(--c-text);
+  background-color: var(--c-raised);
+  border: var(--hairline) solid var(--c-border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+}
+
+.btn:hover {
+  border-color: var(--c-accent);
+}
+
+.btn--primary {
+  background-color: var(--c-accent);
+  color: var(--c-surface);
+  border-color: var(--c-accent);
+  font-weight: var(--fw-bold);
+}
+
+/* Main Container & Control Deck */
+.main-content {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--s-4);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.control-deck {
+  background-color: var(--c-raised);
+  border: var(--hairline) solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.control-deck__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--s-3);
+  align-items: end;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.field-group__label {
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  font-weight: var(--fw-bold);
+  color: var(--c-text-muted);
+}
+
+.preset-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* 12-Col / 8-Col / 4-Col Responsive Comparison Grid (§25.5 & §25.8) */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--s-4);
+}
+
+.lane-card {
+  grid-column: span 6;
+  background-color: var(--c-raised);
+  border: var(--hairline) solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+/* Left Pane visual callout showing what "No Contract / AI Slop" looks like */
+.lane-card--unconstrained {
+  border-color: var(--c-danger);
+}
+
+.slop-preview-banner {
+  background: linear-gradient(135deg, var(--slop-grad-start), var(--slop-grad-end));
+  color: var(--c-text);
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  font-size: var(--t-sm);
+}
+
+.lane-card--contract {
+  border-color: var(--c-success);
+}
+
+.lane-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: var(--hairline) solid var(--c-border);
+  padding-bottom: var(--s-2);
+}
+
+.lane-card__title {
+  font-family: var(--f-mono);
+  font-size: var(--t-2xl);
+  font-weight: var(--fw-bold);
+}
+
+/* Verdict Badges — §25.4 Never convey meaning by color alone (paired with [PASS]/[FAIL] text) */
+.badge {
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  font-weight: var(--fw-bold);
+  padding: var(--s-1) var(--s-2);
+  border-radius: var(--r-sm);
+  border: var(--hairline) solid var(--c-border);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge--pass {
+  color: var(--c-success);
+  border-color: var(--c-success);
+}
+
+.badge--warn {
+  color: var(--c-warn);
+  border-color: var(--c-warn);
+}
+
+.badge--fail {
+  color: var(--c-danger);
+  border-color: var(--c-danger);
+}
+
+.code-output {
+  background-color: var(--c-surface);
+  border: var(--hairline) solid var(--c-border);
+  border-radius: var(--r-sm);
+  padding: var(--s-3);
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.audit-table th,
+.audit-table td {
+  text-align: left;
+  padding: var(--s-2);
+  border-bottom: var(--hairline) solid var(--c-border);
+}
+
+.audit-table th {
+  color: var(--c-text-muted);
+  font-weight: var(--fw-bold);
+}
+
+.site-footer {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--s-4);
+  border-top: var(--hairline) solid var(--c-border);
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  color: var(--c-text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* Tablet (768px) and Phone (375px) responsive collapse (§25.8) */
+@media (max-width: 64rem) {
+  .lane-card {
+    grid-column: span 12;
+  }
+}
+
+/* §25.6 Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
